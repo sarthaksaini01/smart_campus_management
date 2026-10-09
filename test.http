@@ -169,3 +169,73 @@ Authorization: Bearer {{facultyToken}}
 ### Student tries faculty API (should fail)
 GET http://localhost:8080/api/faculty/me
 Authorization: Bearer {{studentToken}}
+
+
+
+
+
+### Create course (admin)
+POST http://localhost:8080/api/admin/courses
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "code": "BTCSE",
+  "name": "B.Tech CSE",
+  "totalSemesters": 8
+}
+
+### Create subject (admin)
+POST http://localhost:8080/api/admin/subjects
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "code": "CS501",
+  "name": "Database Management Systems",
+  "semester": 5,
+  "courseId": 1
+}
+
+### Subject with invalid semester (should fail)
+POST http://localhost:8080/api/admin/subjects
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "code": "CS999",
+  "name": "Invalid Subject",
+  "semester": 9,
+  "courseId": 1
+}
+
+### Assign faculty 1 to subject 1 (admin)
+PUT http://localhost:8080/api/admin/subjects/1/faculty/1
+Authorization: Bearer {{adminToken}}
+
+### My subjects (faculty)
+GET http://localhost:8080/api/faculty/subjects
+Authorization: Bearer {{facultyToken}}
+
+### List courses (student)
+GET http://localhost:8080/api/courses
+Authorization: Bearer {{studentToken}}
+
+### Subjects of course 1 (student)
+GET http://localhost:8080/api/subjects?courseId=1
+Authorization: Bearer {{studentToken}}
+
+### Student tries to create course (should fail)
+POST http://localhost:8080/api/admin/courses
+Content-Type: application/json
+Authorization: Bearer {{studentToken}}
+
+{
+  "code": "X",
+  "name": "X",
+  "totalSemesters": 4
+}
+
+### Delete course 1 (should fail, has subjects)
+DELETE http://localhost:8080/api/admin/courses/1
+Authorization: Bearer {{adminToken}}
