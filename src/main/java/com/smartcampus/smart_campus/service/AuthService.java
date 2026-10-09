@@ -10,6 +10,8 @@ import com.smartcampus.smart_campus.exception.InvalidCredentialsException;
 import com.smartcampus.smart_campus.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.smartcampus.smart_campus.entity.Role;
+import com.smartcampus.smart_campus.exception.InvalidRequestException;
 
 @Service
 public class AuthService {
@@ -27,6 +29,9 @@ public class AuthService {
     }
 
     public UserResponse register(RegisterRequest request) {
+        if (request.getRole() == Role.ADMIN) {
+            throw new InvalidRequestException("Admin accounts cannot be self-registered");
+        }
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistsException("Email already registered");
         }

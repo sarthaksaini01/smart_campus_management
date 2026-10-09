@@ -58,3 +58,59 @@ Content-Type: application/json
 > {%
     client.global.set("adminToken", response.body.token);
 %}
+
+
+
+### Create student (admin)
+POST http://localhost:8080/api/admin/students
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "fullName": "Rahul Sharma",
+  "email": "rahul@test.com",
+  "password": "123456",
+  "rollNo": "CSE2023001",
+  "course": "B.Tech CSE",
+  "semester": 5
+}
+
+### List students (admin)
+GET http://localhost:8080/api/admin/students
+Authorization: Bearer {{adminToken}}
+
+### Get student 1 (admin)
+GET http://localhost:8080/api/admin/students/1
+Authorization: Bearer {{adminToken}}
+
+### Update student 1 (admin)
+PUT http://localhost:8080/api/admin/students/1
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "fullName": "Rahul Kumar Sharma",
+  "course": "B.Tech CSE",
+  "semester": 6
+}
+
+### Delete student 1 (admin)
+DELETE http://localhost:8080/api/admin/students/1
+Authorization: Bearer {{adminToken}}
+
+### Login as the new student
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "rahul@test.com",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("studentToken", response.body.token);
+%}
+
+### My profile (student)
+GET http://localhost:8080/api/student/me
+Authorization: Bearer {{studentToken}}
