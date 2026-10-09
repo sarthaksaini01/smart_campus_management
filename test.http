@@ -114,3 +114,58 @@ Content-Type: application/json
 ### My profile (student)
 GET http://localhost:8080/api/student/me
 Authorization: Bearer {{studentToken}}
+
+
+
+
+### Create faculty (admin)
+POST http://localhost:8080/api/admin/faculty
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "fullName": "Dr. Anita Verma",
+  "email": "anita@test.com",
+  "password": "123456",
+  "employeeId": "EMP1001",
+  "department": "Computer Science"
+}
+
+### List faculty (admin)
+GET http://localhost:8080/api/admin/faculty
+Authorization: Bearer {{adminToken}}
+
+### Update faculty 1 (admin)
+PUT http://localhost:8080/api/admin/faculty/1
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "fullName": "Dr. Anita Verma",
+  "department": "Information Technology"
+}
+
+### Login as faculty
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "anita@test.com",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("facultyToken", response.body.token);
+%}
+
+### My profile (faculty)
+GET http://localhost:8080/api/faculty/me
+Authorization: Bearer {{facultyToken}}
+
+### Faculty tries admin API (should fail)
+GET http://localhost:8080/api/admin/faculty
+Authorization: Bearer {{facultyToken}}
+
+### Student tries faculty API (should fail)
+GET http://localhost:8080/api/faculty/me
+Authorization: Bearer {{studentToken}}
