@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import io.jsonwebtoken.Claims;
 
 @Service
 public class JwtService {
@@ -31,5 +32,12 @@ public class JwtService {
                 .expiration(new Date(now.getTime() + expirationMs))
                 .signWith(key)
                 .compact();
+    }
+    public Claims parse(String token) {
+        return Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }
