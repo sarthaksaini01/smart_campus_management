@@ -366,3 +366,80 @@ Authorization: Bearer {{studentToken}}
     { "studentId": 3, "status": "PRESENT" }
   ]
 }
+
+
+
+
+### Admin posts notice for ALL
+POST http://localhost:8080/api/notices
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "title": "Mid-term exams from 20 Nov",
+  "content": "Mid-term exams will start from 20 November. Check the timetable on the notice board.",
+  "audience": "ALL"
+}
+
+### Faculty posts notice for STUDENT
+POST http://localhost:8080/api/notices
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "title": "DBMS assignment",
+  "content": "Submit the ER diagram assignment by Friday.",
+  "audience": "STUDENT"
+}
+
+### Faculty tries notice for ALL (should fail)
+POST http://localhost:8080/api/notices
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "title": "Not allowed",
+  "content": "Faculty cannot post to everyone.",
+  "audience": "ALL"
+}
+
+### Admin posts notice for FACULTY only
+POST http://localhost:8080/api/notices
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "title": "Faculty meeting",
+  "content": "Staff meeting on Monday at 10 AM.",
+  "audience": "FACULTY"
+}
+
+### My notices (student)
+GET http://localhost:8080/api/notices
+Authorization: Bearer {{studentToken}}
+
+### My notices (faculty)
+GET http://localhost:8080/api/notices?page=0&size=5
+Authorization: Bearer {{facultyToken}}
+
+### Student tries to post notice (should fail)
+POST http://localhost:8080/api/notices
+Content-Type: application/json
+Authorization: Bearer {{studentToken}}
+
+{
+  "title": "x",
+  "content": "x",
+  "audience": "ALL"
+}
+
+### Notices without token (should be 401)
+GET http://localhost:8080/api/notices
+
+### Search students (admin)
+GET http://localhost:8080/api/admin/students?search=priya&page=0&size=5
+Authorization: Bearer {{adminToken}}
+
+### Faculty list paginated (admin)
+GET http://localhost:8080/api/admin/faculty?page=0&size=5
+Authorization: Bearer {{adminToken}}

@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+import com.smartcampus.smart_campus.dto.PageResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 @Service
 public class FacultyService {
 
@@ -56,8 +58,10 @@ public class FacultyService {
     }
 
     @Transactional(readOnly = true)
-    public List<FacultyResponse> getAll() {
-        return facultyRepository.findAll().stream().map(this::toResponse).toList();
+    public PageResponse<FacultyResponse> search(String query, Pageable pageable) {
+        Page<Faculty> page = facultyRepository
+                .findByUserFullNameContainingIgnoreCaseOrEmployeeIdContainingIgnoreCase(query, query, pageable);
+        return PageResponse.of(page.map(this::toResponse));
     }
 
     @Transactional(readOnly = true)

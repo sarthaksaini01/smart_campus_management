@@ -1,6 +1,8 @@
 package com.smartcampus.smart_campus.repository;
 
 import com.smartcampus.smart_campus.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -15,4 +17,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     boolean existsByRollNo(String rollNo);
 
     List<Student> findByCourseAndSemester(String course, Integer semester);
+
+    Page<Student> findByUserFullNameContainingIgnoreCaseOrRollNoContainingIgnoreCase(
+            String name, String rollNo, Pageable pageable);
 }

@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import com.smartcampus.smart_campus.dto.PageResponse;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 @RestController
 @RequestMapping("/api/admin/faculty")
 public class AdminFacultyController {
@@ -27,8 +30,11 @@ public class AdminFacultyController {
     }
 
     @GetMapping
-    public List<FacultyResponse> getAll() {
-        return facultyService.getAll();
+    public PageResponse<FacultyResponse> getAll(@RequestParam(defaultValue = "") String search,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(Math.max(page, 0), Math.min(Math.max(size, 1), 50), Sort.by("id"));
+        return facultyService.search(search.trim(), pageable);
     }
 
     @GetMapping("/{id}")
