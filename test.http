@@ -239,3 +239,130 @@ Authorization: Bearer {{studentToken}}
 ### Delete course 1 (should fail, has subjects)
 DELETE http://localhost:8080/api/admin/courses/1
 Authorization: Bearer {{adminToken}}
+
+
+
+### Create test student for attendance (admin)
+POST http://localhost:8080/api/admin/students
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "fullName": "Priya Singh",
+  "email": "priya@test.com",
+  "password": "123456",
+  "rollNo": "CSE2023002",
+  "course": "B.Tech CSE",
+  "semester": 5
+}
+
+### Login faculty (Anita)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "anita@test.com",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("facultyToken", response.body.token);
+%}
+
+### Students of subject 1 (faculty)
+GET http://localhost:8080/api/faculty/subjects/1/students
+Authorization: Bearer {{facultyToken}}
+
+### Mark attendance 05 Oct (faculty)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-05",
+  "records": [
+    { "studentId": 3, "status": "PRESENT" }
+  ]
+}
+
+### Mark attendance 06 Oct (faculty)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-06",
+  "records": [
+    { "studentId": 3, "status": "ABSENT" }
+  ]
+}
+
+### Mark attendance 07 Oct (faculty)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-07",
+  "records": [
+    { "studentId": 3, "status": "PRESENT" }
+  ]
+}
+
+### Subject summary (faculty)
+GET http://localhost:8080/api/faculty/subjects/1/attendance/summary
+Authorization: Bearer {{facultyToken}}
+
+### Low attendance below 75 (faculty)
+GET http://localhost:8080/api/faculty/subjects/1/attendance/summary?below=75
+Authorization: Bearer {{facultyToken}}
+
+### Future date (should fail)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-12-31",
+  "records": [
+    { "studentId": 3, "status": "PRESENT" }
+  ]
+}
+
+### Login student (Priya)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "priya@test.com",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("studentToken", response.body.token);
+%}
+
+### My attendance summary (student)
+GET http://localhost:8080/api/student/attendance
+Authorization: Bearer {{studentToken}}
+
+### My records for subject 1 (student)
+GET http://localhost:8080/api/student/attendance/1
+Authorization: Bearer {{studentToken}}
+
+### Student tries to mark attendance (should fail)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{studentToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-08",
+  "records": [
+    { "studentId": 3, "status": "PRESENT" }
+  ]
+}
