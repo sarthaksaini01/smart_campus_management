@@ -443,3 +443,132 @@ Authorization: Bearer {{adminToken}}
 ### Faculty list paginated (admin)
 GET http://localhost:8080/api/admin/faculty?page=0&size=5
 Authorization: Bearer {{adminToken}}
+
+
+
+
+
+### Create weak student Aman (admin)
+POST http://localhost:8080/api/admin/students
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "fullName": "Aman Verma",
+  "email": "aman@test.com",
+  "password": "123456",
+  "rollNo": "CSE2023003",
+  "course": "B.Tech CSE",
+  "semester": 5
+}
+
+### Aman attendance 05 Oct (faculty)  -- studentId = Aman ki id
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-05",
+  "records": [ { "studentId": 4, "status": "ABSENT" } ]
+}
+
+### Aman attendance 06 Oct (faculty)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-06",
+  "records": [ { "studentId": 4, "status": "ABSENT" } ]
+}
+
+### Aman attendance 07 Oct (faculty)
+POST http://localhost:8080/api/faculty/attendance
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "date": "2026-10-07",
+  "records": [ { "studentId": 4, "status": "PRESENT" } ]
+}
+
+### Aman marks subject 1 (faculty)
+POST http://localhost:8080/api/faculty/marks
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 1,
+  "records": [ { "studentId": 4, "internalMarks": 10, "externalMarks": 20 } ]
+}
+
+### Aman marks subject 2 (faculty)
+POST http://localhost:8080/api/faculty/marks
+Content-Type: application/json
+Authorization: Bearer {{facultyToken}}
+
+{
+  "subjectId": 2,
+  "records": [ { "studentId": 4, "internalMarks": 12, "externalMarks": 18 } ]
+}
+
+### Analytics overview (admin)
+GET http://localhost:8080/api/admin/analytics/overview
+Authorization: Bearer {{adminToken}}
+
+### Attendance by subject (admin)
+GET http://localhost:8080/api/admin/analytics/attendance-by-subject
+Authorization: Bearer {{adminToken}}
+
+### Subject performance (admin)
+GET http://localhost:8080/api/admin/analytics/subject-performance
+Authorization: Bearer {{adminToken}}
+
+### Grade distribution (admin)
+GET http://localhost:8080/api/admin/analytics/grade-distribution
+Authorization: Bearer {{adminToken}}
+
+### Students by course (admin)
+GET http://localhost:8080/api/admin/analytics/students-by-course
+Authorization: Bearer {{adminToken}}
+
+### At-risk students (admin)
+GET http://localhost:8080/api/admin/analytics/at-risk
+Authorization: Bearer {{adminToken}}
+
+### At-risk students of subject 1 (faculty)
+GET http://localhost:8080/api/faculty/subjects/1/at-risk
+Authorization: Bearer {{facultyToken}}
+
+### My risk (student - Priya)
+GET http://localhost:8080/api/student/risk
+Authorization: Bearer {{studentToken}}
+
+### Student tries admin analytics (should fail)
+GET http://localhost:8080/api/admin/analytics/overview
+Authorization: Bearer {{studentToken}}
+
+
+### Create second subject, semester 5 (admin)
+POST http://localhost:8080/api/admin/subjects
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "code": "CS502",
+  "name": "Operating Systems",
+  "semester": 5,
+  "courseId": 1
+}
+
+### Assign faculty 1 to subject 2 (admin)
+PUT http://localhost:8080/api/admin/subjects/2/faculty/1
+Authorization: Bearer {{adminToken}}
+
+
+### Assign faculty 1 to subject 2 (admin)
+PUT http://localhost:8080/api/admin/subjects/2/faculty/1
+Authorization: Bearer {{adminToken}}
