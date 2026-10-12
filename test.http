@@ -687,3 +687,20 @@ Content-Type: application/json
 Authorization: Bearer {{adminToken}}
 
 { "message": "Give me a campus overview and the highest risk students" }
+
+
+
+### Insights in English (student)
+GET http://localhost:8080/api/student/insights
+Authorization: Bearer {{studentToken}}
+
+### Insights in Hinglish (student)
+GET http://localhost:8080/api/student/insights?lang=hinglish
+Authorization: Bearer {{studentToken}}
+
+### Insights without token (should be 401)
+GET http://localhost:8080/api/student/insights
+
+### Faculty tries student insights (should be 403)
+GET http://localhost:8080/api/student/insights
+Authorization: Bearer {{facultyToken}}
