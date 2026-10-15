@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import org.springframework.dao.DataIntegrityViolationException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -69,5 +69,12 @@ public class GlobalExceptionHandler {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(error);
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleIntegrity(DataIntegrityViolationException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("error", "This record is linked to other data (attendance, marks or subjects) "
+                + "and cannot be changed or deleted");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 }
