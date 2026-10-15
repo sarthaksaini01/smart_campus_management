@@ -7,6 +7,10 @@ import Courses from './pages/admin/Courses';
 import Faculty from './pages/admin/Faculty';
 import Students from './pages/admin/Students';
 import Subjects from './pages/admin/Subjects';
+import Attendance from './pages/faculty/Attendance';
+import AtRisk from './pages/faculty/AtRisk';
+import Marks from './pages/faculty/Marks';
+import MySubjects from './pages/faculty/MySubjects';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
@@ -30,6 +34,13 @@ export default function App() {
                   <Route path="admin/faculty" element={<Faculty />} />
                   <Route path="admin/courses" element={<Courses />} />
                   <Route path="admin/subjects" element={<Subjects />} />
+                </Route>
+
+                <Route element={<ProtectedRoute roles={['FACULTY']} />}>
+                  <Route path="faculty/subjects" element={<MySubjects />} />
+                  <Route path="faculty/attendance" element={<Attendance />} />
+                  <Route path="faculty/marks" element={<Marks />} />
+                  <Route path="faculty/at-risk" element={<AtRisk />} />
                 </Route>
 
                 <Route path="*" element={<NotFound />} />

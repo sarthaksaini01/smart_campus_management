@@ -529,3 +529,91 @@ textarea.input {
   align-items: center;
   gap: 12px;
 }
+/* ---------- Phase 4 additions ---------- */
+.badge-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.picker label {
+  font-weight: 600;
+}
+
+.picker .input {
+  max-width: 360px;
+}
+
+.sheet-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.sheet-bar .input {
+  width: auto;
+}
+
+.sheet-bar .spacer {
+  flex: 1;
+}
+
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.seg-btn {
+  border: none;
+  background: #fff;
+  padding: 5px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.seg-btn + .seg-btn {
+  border-left: 1px solid var(--border);
+}
+
+.seg-btn.present.active {
+  background: var(--success);
+  color: #fff;
+}
+
+.seg-btn.absent.active {
+  background: var(--danger);
+  color: #fff;
+}
+
+.input-num {
+  width: 90px;
+}
+
+.input-error {
+  border-color: var(--danger);
+  background: #fef2f2;
+}
+
+.reasons {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.table td.wrap {
+  white-space: normal;
+  min-width: 240px;
+}

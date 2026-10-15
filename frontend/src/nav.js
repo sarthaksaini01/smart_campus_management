@@ -10,6 +10,13 @@ export const NAV = {
     { to: '/admin/subjects', label: 'Subjects' },
     NOTICES,
   ],
-  FACULTY: [DASHBOARD, NOTICES],
+  FACULTY: [
+    DASHBOARD,
+    { to: '/faculty/subjects', label: 'My subjects' },
+    { to: '/faculty/attendance', label: 'Attendance' },
+    { to: '/faculty/marks', label: 'Marks' },
+    { to: '/faculty/at-risk', label: 'At-risk students' },
+    NOTICES,
+  ],
   STUDENT: [DASHBOARD, NOTICES],
 };
