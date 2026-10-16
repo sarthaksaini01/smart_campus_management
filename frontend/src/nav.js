@@ -18,5 +18,11 @@ export const NAV = {
     { to: '/faculty/at-risk', label: 'At-risk students' },
     NOTICES,
   ],
-  STUDENT: [DASHBOARD, NOTICES],
+  STUDENT: [
+    DASHBOARD,
+    { to: '/student/attendance', label: 'Attendance' },
+    { to: '/student/results', label: 'Results' },
+    { to: '/student/insights', label: 'Risk and AI advice' },
+    NOTICES,
+  ],
 };

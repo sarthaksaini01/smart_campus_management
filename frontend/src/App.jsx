@@ -7,14 +7,17 @@ import Courses from './pages/admin/Courses';
 import Faculty from './pages/admin/Faculty';
 import Students from './pages/admin/Students';
 import Subjects from './pages/admin/Subjects';
+import Dashboard from './pages/Dashboard';
 import Attendance from './pages/faculty/Attendance';
 import AtRisk from './pages/faculty/AtRisk';
 import Marks from './pages/faculty/Marks';
 import MySubjects from './pages/faculty/MySubjects';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Notices from './pages/Notices';
+import StudentAttendance from './pages/student/Attendance';
+import Insights from './pages/student/Insights';
+import Results from './pages/student/Results';
 
 export default function App() {
   return (
@@ -26,7 +29,7 @@ export default function App() {
 
             <Route element={<ProtectedRoute />}>
               <Route element={<Layout />}>
-                <Route index element={<Home />} />
+                <Route index element={<Dashboard />} />
                 <Route path="notices" element={<Notices />} />
 
                 <Route element={<ProtectedRoute roles={['ADMIN']} />}>
@@ -41,6 +44,12 @@ export default function App() {
                   <Route path="faculty/attendance" element={<Attendance />} />
                   <Route path="faculty/marks" element={<Marks />} />
                   <Route path="faculty/at-risk" element={<AtRisk />} />
+                </Route>
+
+                <Route element={<ProtectedRoute roles={['STUDENT']} />}>
+                  <Route path="student/attendance" element={<StudentAttendance />} />
+                  <Route path="student/results" element={<Results />} />
+                  <Route path="student/insights" element={<Insights />} />
                 </Route>
 
                 <Route path="*" element={<NotFound />} />
