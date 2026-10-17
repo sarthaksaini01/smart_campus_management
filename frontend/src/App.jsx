@@ -3,6 +3,7 @@ import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import Layout from './components/Layout';
 import { ToastProvider } from './components/Toast';
+import AtRiskAll from './pages/admin/AtRiskAll';
 import Courses from './pages/admin/Courses';
 import Faculty from './pages/admin/Faculty';
 import Students from './pages/admin/Students';
@@ -37,6 +38,7 @@ export default function App() {
                   <Route path="admin/faculty" element={<Faculty />} />
                   <Route path="admin/courses" element={<Courses />} />
                   <Route path="admin/subjects" element={<Subjects />} />
+                  <Route path="admin/at-risk" element={<AtRiskAll />} />
                 </Route>
 
                 <Route element={<ProtectedRoute roles={['FACULTY']} />}>

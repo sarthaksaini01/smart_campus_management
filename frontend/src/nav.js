@@ -8,6 +8,7 @@ export const NAV = {
     { to: '/admin/faculty', label: 'Faculty' },
     { to: '/admin/courses', label: 'Courses' },
     { to: '/admin/subjects', label: 'Subjects' },
+    { to: '/admin/at-risk', label: 'At-risk students' },
     NOTICES,
   ],
   FACULTY: [

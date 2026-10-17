@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { NAV } from '../nav';
+import ChatWidget from './ChatWidget';
 
 export default function Layout() {
   const { user, logout } = useAuth();
@@ -36,6 +37,8 @@ export default function Layout() {
       <main className="content">
         <Outlet />
       </main>
+
+      <ChatWidget />
     </div>
   );
 }
