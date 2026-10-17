@@ -1,4 +1,5 @@
 spring.application.name=smart-campus
+server.port=${PORT:8080}
 spring.datasource.url=${DB_URL:jdbc:mysql://localhost:3306/smart_campus}
 spring.datasource.username=${DB_USERNAME:root}
 spring.datasource.password=${DB_PASSWORD:change_me}
