@@ -65,11 +65,11 @@ export default function Login() {
         <button className="btn btn-primary btn-block" type="submit" disabled={loading}>
           {loading ? 'Signing in...' : 'Sign in'}
         </button>
-                {loading && (
-          <p className="muted small spaced-top">
-            On free hosting the first request after a break can take up to a minute. Please wait...
-          </p>
-        )}
+   {loading && (
+    <p className="muted small spaced-top">
+          On free hosting the first request after a break can take up to a minute. Please wait...
+      </p>
+  )}
       </form>
     </div>
   );
