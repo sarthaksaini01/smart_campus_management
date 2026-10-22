@@ -33,33 +33,68 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   JwtAuthFilter jwtAuthFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            JwtAuthFilter jwtAuthFilter) throws Exception {
+
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(s ->
+                        s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint((request, response, e) ->
-                                writeJson(response, 401, "Unauthorized: please login"))
+                                writeJson(response, 401, "Unauthorized: please login")
+                        )
                         .accessDeniedHandler((request, response, e) ->
-                                writeJson(response, 403, "Forbidden: you do not have access")))
+                                writeJson(response, 403,
+                                        "Forbidden: you do not have access")
+                        )
+                )
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
+
+                        // Public home page
+                        .requestMatchers(
+                                "/", "/index.html", "/favicon.ico"
+                        ).permitAll()
+
+                        // Public authentication endpoints
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+
+                        // Public API documentation
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+
+                        // CORS preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Protected endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/faculty/**").hasAnyRole("ADMIN", "FACULTY")
+                        .requestMatchers("/api/faculty/**")
+                        .hasAnyRole("ADMIN", "FACULTY")
                         .requestMatchers("/api/student/**").hasRole("STUDENT")
-                        .requestMatchers(HttpMethod.POST, "/api/notices").hasAnyRole("ADMIN", "FACULTY")
-                        .requestMatchers(HttpMethod.DELETE, "/api/notices/**").hasAnyRole("ADMIN", "FACULTY")
+
+                        .requestMatchers(HttpMethod.POST, "/api/notices")
+                        .hasAnyRole("ADMIN", "FACULTY")
+                        .requestMatchers(HttpMethod.DELETE, "/api/notices/**")
+                        .hasAnyRole("ADMIN", "FACULTY")
+
+                        // All remaining endpoints require authentication
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(
+                        jwtAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                );
 
         return http.build();
     }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
