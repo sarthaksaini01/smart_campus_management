@@ -56,9 +56,17 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
 
                         // Public home page
-                        .requestMatchers(
-                                "/", "/index.html", "/favicon.ico"
-                        ).permitAll()
+                        
+ // Public frontend files
+ .requestMatchers(
+         "/",
+         "/index.html",
+         "/favicon.ico",
+         "/favicon.svg",
+         "/icons.svg",
+         "/assets/**"
+ ).permitAll()
+
 
                         // Public authentication endpoints
                         .requestMatchers("/api/auth/**").permitAll()
