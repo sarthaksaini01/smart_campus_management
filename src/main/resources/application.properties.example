@@ -19,3 +19,5 @@ llm.api-key=${LLM_API_KEY:}
 llm.model=${LLM_MODEL:openai/gpt-oss-120b}
 app.demo.seed=${DEMO_SEED:false}
 app.demo.reset=${DEMO_RESET:false}
+app.demo.seed=${DEMO_SEED}
+app.demo.reset=${DEMO_RESET}
