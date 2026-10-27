@@ -36,24 +36,17 @@ A full-stack web application built to support campus management workflows throug
 
 - Springdoc OpenAPI
 
-## Features
+## ✨ Key Features
 
-- React-based login interface
+- **Authentication:** Login interface with backend authentication support.
+- **REST API:** Backend endpoints built using Spring Boot.
+- **Security:** Spring Security and JWT-based authentication.
+- **Frontend Routing:** React Router for navigating between application pages.
+- **Database Integration:** MySQL persistence using Spring Data JPA.
+- **Testing:** Backend tests using JUnit, Spring Boot testing support, and an H2 in-memory database.
+- **Configuration:** Environment-specific application configuration.
 
-- Backend REST API
-
-- Authentication and security using Spring Security and JWT
-
-- Role-based frontend routing
-
-- Database persistence through Spring Data JPA
-
-- Environment-based application configuration
-
-- Automated backend tests
-
-> Update this list to match the features that are fully implemented in the current codebase.
-
+*Note: Keep each feature listed above only if it is implemented and working in the current version of the project.*
 ## Project Structure
 
 ```text
