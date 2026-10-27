@@ -2,6 +2,14 @@
 
 A full-stack web application built to support campus management workflows through a Spring Boot REST API and a React-based frontend.
 
+## 📸 Application Screenshots
+
+### Login Page
+![Login Page](screenshots/login-page.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
 ## Tech Stack
 
 **Backend**
